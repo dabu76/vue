@@ -2,18 +2,10 @@
   <div class="menu">
     <a v-for="作名 in メニュー" :key="作名">{{ 作名 }}</a>
   </div>
-  <div>
-    1kショップ
-    <h4 class="red" :style="スタイル">{{ products[0] }} 1k</h4>
+  1kショップ
+  <div v-for="room in products" :key="room">
+    <h4 class="red" :style="スタイル">{{ room }} 1k</h4>
     <p>{{ price1 }}万円</p>
-  </div>
-  <div>
-    <h4 class="red" :style="スタイル">{{ products[1] }}1k</h4>
-    <p>{{ price2 }}万円</p>
-  </div>
-  <div>
-    <h4 class="red" :style="スタイル">{{ products[2] }}1k</h4>
-    <p>{{ price3 }}万円</p>
   </div>
 </template>
 
