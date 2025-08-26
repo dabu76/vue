@@ -1,8 +1,10 @@
 <template>
   <div class="black-bg" v-if="modal_open === true">
     <div class="white-bg">
-      <h4>詳細ページ</h4>
-      <p>詳細ページ内容</p>
+      <h4>{{ ルーム[push].title }}</h4>
+      <img :src="`${ルーム[push].image}`" style="width: 100%" alt="" />
+      <p>{{ ルーム[push].content }}</p>
+      <p>{{ ルーム[push].price }}</p>
       <button @click="modal_open = false">閉じる</button>
     </div>
   </div>
@@ -10,14 +12,22 @@
     <div class="menu">
       <a v-for="作名 in メニュー" :key="作名">{{ 作名 }}</a>
     </div>
+    <Discount />
     1kショップ
 
-    <div v-for="(room, i) in products" :key="room" class="room-card">
-      <h4 class="red" :style="スタイル" @:click="modal_open = true">
-        {{ room }} 1k
+    <div v-for="(room, i) in ルーム" :key="room" class="room-card">
+      <h4
+        class="red"
+        :style="スタイル"
+        @:click="
+          modal_open = true;
+          push = [i];
+        "
+      >
+        {{ ルーム[i].title }} 1k
       </h4>
-      <img :src="`/room${i}.jpg`" class="room-img" alt="" />
-      <p>{{ price[i] }}万円</p>
+      <img :src="`${ルーム[i].image}`" class="room-img" alt="" />
+      <p>{{ ルーム[i].price }}万円</p>
       <button @click="increase(i)">report</button>
       <span>count :{{ counts[i] }}</span>
     </div>
@@ -25,16 +35,21 @@
 </template>
 
 <script>
+import data from "./assets/oneroom.js";
+import Discount from "./discount.vue";
+import Modal from "./modal.vue";
 export default {
   name: "App",
   data() {
     return {
+      push: 0,
+      ルーム: data,
       modal_open: false,
       メニュー: ["Home", "Shop", "About"],
       price: [60, 70, 80],
       スタイル: "color:blue",
       products: ["伏見", "浄心", "浅間町"],
-      counts: [0, 0, 0],
+      counts: [0, 0, 0, 0, 0, 0],
     };
   },
   methods: {
@@ -48,11 +63,21 @@ export default {
       }
     },
   },
-  components: {},
+  components: {
+    Discount: Discount,
+    Modal: Modal,
+  },
 };
 </script>
 
 <style>
+.discount {
+  background: #eee;
+  width: 500px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+}
 body {
   margin: 0;
 }
@@ -70,7 +95,7 @@ div {
   width: 100%;
   background: white;
   border-radius: 8px;
-  height: 300px;
+  height: 500px;
 }
 .menu {
   background: darkslateblue;
