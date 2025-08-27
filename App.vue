@@ -1,43 +1,31 @@
 <template>
-  <div class="black-bg" v-if="modal_open === true">
-    <div class="white-bg">
-      <h4>{{ ルーム[push].title }}</h4>
-      <img :src="`${ルーム[push].image}`" style="width: 100%" alt="" />
-      <p>{{ ルーム[push].content }}</p>
-      <p>{{ ルーム[push].price }}</p>
-      <button @click="modal_open = false">閉じる</button>
-    </div>
-  </div>
+  <Modal :ルーム="ルーム" :push="push" :modal_open="modal_open" />
   <div class="container">
     <div class="menu">
       <a v-for="作名 in メニュー" :key="作名">{{ 作名 }}</a>
     </div>
     <Discount />
     1kショップ
-
-    <div v-for="(room, i) in ルーム" :key="room" class="room-card">
-      <h4
-        class="red"
-        :style="スタイル"
-        @:click="
+    <Click
+      :ルーム="ルーム"
+      :counts="counts"
+      :modal_open="modal_open"
+      :increase="increase"
+      @openModal="
+        (i) => {
           modal_open = true;
-          push = [i];
-        "
-      >
-        {{ ルーム[i].title }} 1k
-      </h4>
-      <img :src="`${ルーム[i].image}`" class="room-img" alt="" />
-      <p>{{ ルーム[i].price }}万円</p>
-      <button @click="increase(i)">report</button>
-      <span>count :{{ counts[i] }}</span>
-    </div>
+          push = i;
+        }
+      "
+    />
   </div>
 </template>
 
 <script>
 import data from "./assets/oneroom.js";
 import Discount from "./discount.vue";
-import Modal from "./modal.vue";
+import Modal from "./Modal.vue";
+import Click from "./Click.vue";
 export default {
   name: "App",
   data() {
@@ -66,6 +54,7 @@ export default {
   components: {
     Discount: Discount,
     Modal: Modal,
+    Click: Click,
   },
 };
 </script>
