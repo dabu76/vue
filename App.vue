@@ -1,5 +1,14 @@
 <template>
-  <Modal :ルーム="ルーム" :push="push" :modal_open="modal_open" />
+  <Modal
+    :ルーム="ルーム"
+    :push="push"
+    :modal_open="modal_open"
+    @closeModal="
+      () => {
+        modal_open = false;
+      }
+    "
+  />
   <div class="container">
     <div class="menu">
       <a v-for="作名 in メニュー" :key="作名">{{ 作名 }}</a>

@@ -5,7 +5,7 @@
       <img :src="`${ルーム[push].image}`" style="width: 100%" alt="" />
       <p>{{ ルーム[push].content }}</p>
       <p>{{ ルーム[push].price }}</p>
-      <button @click="modal_open = false">閉じる</button>
+      <button @click="$emit('closeModal')">閉じる</button>
     </div>
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
     push: "Number",
     modal_open: "boolean",
   },
+  emits: ["closeModal"],
 };
 </script>
 <style>
