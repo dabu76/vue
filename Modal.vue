@@ -4,7 +4,7 @@
       <h4>{{ ルーム[push].title }}</h4>
       <img :src="`${ルーム[push].image}`" style="width: 100%" alt="" />
       <p>{{ ルーム[push].content }}</p>
-      <input v-model="month" />
+      <input v-model.number="month" />
       <p>{{ month }}ヶ月選択しました : {{ ルーム[push].price * month }}円</p>
       <button @click="$emit('closeModal')">閉じる</button>
     </div>
@@ -17,6 +17,20 @@ export default {
     return {
       month: 1,
     };
+  },
+  watch: {
+    month(data) {
+      if (data === "") {
+        return;
+      }
+      if (data >= 13) {
+        alert("13以上は入力できません");
+        this.month = 1;
+      } else if (typeof data === "string") {
+        alert("文字は入力できません");
+        this.month = 1;
+      }
+    },
   },
   props: {
     ルーム: "Array",
