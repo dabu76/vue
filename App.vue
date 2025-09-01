@@ -1,14 +1,16 @@
 <template>
-  <Modal
-    :ルーム="ルーム"
-    :push="push"
-    :modal_open="modal_open"
-    @closeModal="
-      () => {
-        modal_open = false;
-      }
-    "
-  />
+  <Transition name="fade">
+    <Modal
+      :ルーム="ルーム"
+      :push="push"
+      :modal_open="modal_open"
+      @closeModal="
+        () => {
+          modal_open = false;
+        }
+      "
+    />
+  </Transition>
   <div class="container">
     <div class="menu">
       <a v-for="作名 in メニュー" :key="作名">{{ 作名 }}</a>
@@ -35,6 +37,7 @@ import data from "./assets/oneroom.js";
 import Discount from "./discount.vue";
 import Modal from "./Modal.vue";
 import Click from "./Click.vue";
+import { Transition } from "vue";
 export default {
   name: "App",
   data() {
@@ -125,5 +128,22 @@ div {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.start {
+  opacity: 0;
+  transition: all 1s;
+}
+.end {
+  opacity: 1;
+}
+
+.fade-enter-from {
+  transform: translateY(-1000px);
+}
+.fade-enter-active {
+  transition: all 1s;
+}
+.fade-enter-to {
+  transform: translateY(0);
 }
 </style>
