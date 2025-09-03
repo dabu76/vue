@@ -15,7 +15,12 @@
     <div class="menu">
       <a v-for="作名 in メニュー" :key="作名">{{ 作名 }}</a>
     </div>
-    <Discount />
+    <Discount v-if="showDiscount == true" :discount="discount" />
+    <button @click="priceSort">安い</button>
+    <button @click="bigPriceSort">高い</button>
+    <button @click="MoZiSort">a-z</button>
+    <button @click="sortBack">戻る</button>
+
     1kショップ
     <Click
       :ルーム="ルーム"
@@ -42,6 +47,9 @@ export default {
   name: "App",
   data() {
     return {
+      showDiscount: true,
+      discount: 30,
+      roomOrigin: [...data],
       push: 0,
       ルーム: data,
       modal_open: false,
@@ -53,6 +61,24 @@ export default {
     };
   },
   methods: {
+    priceSort() {
+      this.ルーム.sort(function (a, b) {
+        return a.price - b.price;
+      });
+    },
+    sortBack() {
+      this.ルーム = [...this.roomOrigin];
+    },
+    bigPriceSort() {
+      this.ルーム.sort(function (a, b) {
+        return b.price - a.price;
+      });
+    },
+    MoZiSort() {
+      this.ルーム.sort((a, b) =>
+        a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+      );
+    },
     increase(i) {
       if (i === 0) {
         this.counts[0] += 1;
@@ -63,6 +89,12 @@ export default {
       }
     },
   },
+  created() {},
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.showDiscount = false;
+  //   }, 2000);
+  // },
   components: {
     Discount: Discount,
     Modal: Modal,

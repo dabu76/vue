@@ -15,7 +15,7 @@ export default {
   name: "Modal",
   data() {
     return {
-      month: 1,
+      month: 3,
     };
   },
   watch: {
@@ -38,6 +38,14 @@ export default {
     modal_open: "boolean",
   },
   emits: ["closeModal"],
+  updated() {
+    if (this.month !== "") {
+      if (this.month <= 2) {
+        alert("3未満はできません");
+        this.month = 3;
+      }
+    }
+  },
 };
 </script>
 <style>
