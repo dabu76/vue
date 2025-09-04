@@ -43,6 +43,8 @@ import Discount from "./discount.vue";
 import Modal from "./Modal.vue";
 import Click from "./Click.vue";
 import { Transition } from "vue";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 export default {
   name: "App",
   data() {
